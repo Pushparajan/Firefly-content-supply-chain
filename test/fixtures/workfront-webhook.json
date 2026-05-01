@@ -1,0 +1,15 @@
+{
+  "eventType": "UPDATE",
+  "objCode": "DOCU",
+  "objID": "5e82b1234567890abcdef123",
+  "subscriptionId": "sub-abc123",
+  "newState": {
+    "ID": "5e82b1234567890abcdef123",
+    "name": "hero-banner-summer-campaign.psd",
+    "status": "approved",
+    "contentHandle": "https://assets.creative.adobe.com/v2/assets/urn:aaid:sc:US:abc123"
+  },
+  "oldState": {
+    "status": "review"
+  }
+}

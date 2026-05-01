@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.env
+*.log
+.aio
+.cache/
+coverage/
+.nyc_output/
+*.tmp

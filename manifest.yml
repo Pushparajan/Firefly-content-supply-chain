@@ -1,0 +1,48 @@
+application:
+  runtimeManifest:
+    packages:
+      content-supply-chain:
+        license: Apache-2.0
+        actions:
+          # ---------------------------------------------------------------
+          # Main orchestration action: Workfront webhook → Firefly V3 → AEM
+          # ---------------------------------------------------------------
+          orchestrate:
+            function: actions/orchestrate/index.js
+            web: 'yes'
+            runtime: 'nodejs:18'
+            limits:
+              # Extended timeout supports full async poll cycle (max 3600000 ms)
+              timeout: 300000
+              memorySize: 512
+              concurrency: 50
+            annotations:
+              require-adobe-auth: false   # Webhook auth handled by HMAC in-action
+              final: true
+            include:
+              - actions/orchestrate/*.js
+              - lib/*.js
+            environments:
+              # IMS / OAuth Server-to-Server
+              - AIO_IMS_CONTEXT_NAME
+              - AIO_IMS_ORG_ID
+              - CLIENT_ID
+              - CLIENT_SECRET
+              - TECHNICAL_ACCOUNT_ID
+              - TECHNICAL_ACCOUNT_EMAIL
+              # Firefly
+              - FIREFLY_API_BASE_URL
+              - BRAND_STYLE_REFERENCE_URL
+              - FIREFLY_NUM_VARIATIONS
+              - FIREFLY_POLL_INTERVAL_MS
+              - FIREFLY_POLL_MAX_ATTEMPTS
+              # AEM
+              - AEM_HOST
+              - AEM_UPLOAD_BASE_PATH
+              - AEM_BATCH_UPLOAD_ENABLED
+              # Workfront
+              - WORKFRONT_BASE_URL
+              - WORKFRONT_API_KEY
+              - WORKFRONT_API_VERSION
+              # Security
+              - WORKFRONT_WEBHOOK_SECRET
