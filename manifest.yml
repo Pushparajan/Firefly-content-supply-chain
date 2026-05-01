@@ -46,3 +46,35 @@ application:
               - WORKFRONT_API_VERSION
               # Security
               - WORKFRONT_WEBHOOK_SECRET
+
+          # ---------------------------------------------------------------
+          # Fusion Ingest action: Content Hub agency upload → AEM Assets
+          # Called by a Workfront Fusion scenario on new contribution events
+          # ---------------------------------------------------------------
+          fusion-ingest:
+            function: actions/fusion-ingest/index.js
+            web: 'yes'
+            runtime: 'nodejs:18'
+            limits:
+              timeout: 120000
+              memorySize: 512
+              concurrency: 20
+            annotations:
+              require-adobe-auth: false   # Auth via x-fusion-secret header
+              final: true
+            include:
+              - actions/fusion-ingest/*.js
+              - lib/*.js
+            environments:
+              # IMS / OAuth Server-to-Server
+              - AIO_IMS_CONTEXT_NAME
+              - AIO_IMS_ORG_ID
+              - CLIENT_ID
+              - CLIENT_SECRET
+              # Content Hub
+              - CONTENT_HUB_HOST
+              # AEM
+              - AEM_HOST
+              - AEM_UPLOAD_BASE_PATH
+              # Security
+              - FUSION_INGEST_SECRET
