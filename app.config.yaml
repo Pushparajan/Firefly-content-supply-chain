@@ -1,0 +1,9 @@
+application:
+  hostname: adobeio-static.net
+  actions: actions
+  web: web-src
+  runtimeManifest: manifest.yml
+  hooks:
+    pre-app-build: npm run lint
+    post-app-deploy: echo "Content Supply Chain deployed successfully"
+  extensions: {}
