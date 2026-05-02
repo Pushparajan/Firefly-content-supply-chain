@@ -78,3 +78,34 @@ application:
               - AEM_UPLOAD_BASE_PATH
               # Security
               - FUSION_INGEST_SECRET
+
+          # ---------------------------------------------------------------
+          # Offer Sync action: AEM renditions → AJO Offer Library
+          # Called (fire-and-forget) by orchestrate after AEM upload succeeds
+          # ---------------------------------------------------------------
+          offer-sync:
+            function: actions/offer-sync/index.js
+            web: 'yes'
+            runtime: 'nodejs:18'
+            limits:
+              timeout: 120000
+              memorySize: 256
+              concurrency: 10
+            annotations:
+              require-adobe-auth: false   # Caller-secret in x-offer-sync-secret header
+              final: true
+            include:
+              - actions/offer-sync/*.js
+              - lib/*.js
+            environments:
+              # IMS / OAuth Server-to-Server
+              - AIO_IMS_ORG_ID
+              - CLIENT_ID
+              - CLIENT_SECRET
+              # AJO / Offer Decisioning
+              - AEP_SANDBOX_NAME
+              - AEM_PUBLISH_HOST
+              # AEP Streaming (for XDM impression events)
+              - AEP_STREAMING_INLET_URL
+              - AEP_DATASET_ID
+              - AEP_SCHEMA_REF
