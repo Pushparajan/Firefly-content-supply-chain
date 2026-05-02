@@ -15,6 +15,8 @@ ADRs capture significant architectural choices, the context that drove each deci
 | [ADR-005](ADR-005-oauth-server-to-server.md) | OAuth Server-to-Server (S2S) Authentication | Accepted |
 | [ADR-006](ADR-006-hmac-webhook-verification.md) | HMAC-SHA256 Workfront Webhook Verification | Accepted |
 | [ADR-007](ADR-007-sequential-aem-uploads.md) | Sequential Rendition Uploads to AEM | Accepted |
+| [ADR-008](ADR-008-workfront-event-subscriptions.md) | Workfront Event Subscriptions as Pipeline Trigger | Accepted |
+| [ADR-009](ADR-009-workfront-fusion-alternative.md) | Adobe Workfront Fusion Considered as Orchestration Alternative | Accepted |
 
 ## Format
 
